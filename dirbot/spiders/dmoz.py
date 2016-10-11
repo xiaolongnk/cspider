@@ -6,29 +6,39 @@ from dirbot.items import Website
 
 class DmozSpider(Spider):
     name = "dmoz"
-    allowed_domains = ["dmoz.org"]
+    allowed_domains = ["blog.nofile.cc"]
     start_urls = [
-        "http://www.dmoz.org/Computers/Programming/Languages/Python/Books/",
-        "http://www.dmoz.org/Computers/Programming/Languages/Python/Resources/",
+        "https://blog.nofile.cc/",
     ]
 
     def parse(self, response):
         """
         The lines below is a spider contract. For more info see:
         http://doc.scrapy.org/en/latest/topics/contracts.html
-
         @url http://www.dmoz.org/Computers/Programming/Languages/Python/Resources/
         @scrapes name
         """
-        sel = Selector(response)
-        sites = sel.xpath('//ul[@class="directory-url"]/li')
-        items = []
+        self.logger.info('Hi, this is an item page! %s', response.body)
+        # ans = response.xpath('//script/@src').extract()
+        ans = response.xpath('//body/script').extract()
 
-        for site in sites:
-            item = Website()
-            item['name'] = site.xpath('a/text()').extract()
-            item['url'] = site.xpath('a/@href').extract()
-            item['description'] = site.xpath('text()').re('-\s[^\n]*\\r')
-            items.append(item)
+        self.logger.info("Hi, all td are here %s",ans)
+        # items = []
+        # filename = response.url.split("/")[-2] + '.html'
+        # with open(filename, 'wb') as f:
+        #     self.logger.info(response.body)
+        #     f.write(response.body)
 
-        return items
+        # sel = Selector(response)
+        # sites = sel.xpath('//title/text()')
+        # items = []
+        #
+        #
+        # for site in sites:
+        #     item = Website()
+        #     item['name'] = site.xpath('//a[contains(@href, "image")]').extract()
+        #     item['url'] = site.xpath('a/@href').extract()
+        #     item['description'] = site.xpath('text()').re('-\s[^\n]*\\r')
+        #     items.append(item)
+        #
+        # return items
