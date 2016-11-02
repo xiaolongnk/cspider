@@ -1,8 +1,25 @@
 from scrapy.item import Item, Field
 
 
-class Website(Item):
+class DmozItem(Item):
 
-    name = Field()
+    url         = Field()
+    name        = Field()
+    keywords    = Field()
     description = Field()
-    url = Field()
+
+
+class NofileItem(Item):
+    url         = Field()
+    title       = Field()
+    keywords    = Field()
+    description = Field()
+
+
+class StackOverFlowItem(Item):
+    title       = Field()
+    url         = Field()
+    body        = Field()
+    votes       = Field()
+    tags        = Field()
+    description = Field()

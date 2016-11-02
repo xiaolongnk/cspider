@@ -2,51 +2,34 @@
 
 家装爬虫项目，基于scrappy实现。
 
-dirbot
-======
 
-This is a Scrapy project to scrape websites from public web directories.
+## 配置
 
-This project is only meant for educational purposes.
+1. setting.py  配置文件，里面可以设置 USER_AGENT ,伪装成browser，防止被拒。
+    如果没有这个配置的话，stackoverflow的那个spider会被403拒绝。
 
-Items
-=====
 
-The items scraped by this project are websites, and the item is defined in the
-class::
 
-    dirbot.items.Website
+### spiders
 
-See the source code for more details.
+1. blognofile 
 
-Spiders
-=======
+        根据sitemap.xml 抓取网站，抓取了我的博客的[sitemap](https://blog.nofile.cc/sitemap.xml)。
+        重要灵感来自这里[官方docs](http://scrapy-chs.readthedocs.io/zh_CN/latest/topics/spiders.html#id2)
+        采用xpath模式。
 
-This project contains one spider called ``dmoz`` that you can see by running::
+2. stackoverflow
+        
+        这也是一个比较经典的例子,抓取了stackoverflow上的问题。采用了css模式。
 
-    scrapy list
 
-Spider: dmoz
-------------
+### 数据存储
 
-The ``dmoz`` spider scrapes the Open Directory Project (dmoz.org), and it's
-based on the dmoz spider described in the `Scrapy tutorial`_
+抓取的数据以json形式存放在data目录下，json文件名和spider的名字保持一致。
 
-This spider doesn't crawl the entire dmoz.org site but only a few pages by
-default (defined in the ``start_urls`` attribute). These pages are:
 
-* http://www.dmoz.org/Computers/Programming/Languages/Python/Books/
-* http://www.dmoz.org/Computers/Programming/Languages/Python/Resources/
+### 参考资料
 
-So, if you run the spider regularly (with ``scrapy crawl dmoz``) it will scrape
-only those two pages.
-
-.. _Scrapy tutorial: http://doc.scrapy.org/en/latest/intro/tutorial.html
-
-Pipelines
-=========
-
-This project uses a pipeline to filter out websites containing certain
-forbidden words in their description. This pipeline is defined in the class::
-
-    dirbot.pipelines.FilterWordsPipeline
+1. https://doc.scrapy.org/en/latest/topics/selectors.html
+2. http://chenqx.github.io/2014/12/23/Spider-Advanced-for-Dynamic-Website-Crawling/
+3. http://snowdream1314.github.io/2016/02/19/scrapy-1/
