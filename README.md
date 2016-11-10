@@ -1,11 +1,27 @@
 #cspider
 
+os: ubuntu 16.10 (any linux version)
 
 ## scrapy 
 
+安装之前，推荐安装ipython ，后面用 scrapy shell 的时候会方便很多。
+
 to install scrapy [refer this](https://doc.scrapy.org/en/latest/intro/install.html)
+```shell
+pip install ipython
+pip install Scrapy
+```
 
 爬虫项目，基于scrapy实现。
+
+使用说明(摘自文档)
+
+```
+scrapy startproject tutorial
+scrapy crawl quotes
+scrapy shell 'http://quotes.toscrape.com/page/1/'
+```
+关键词 `scrapy shell,scrapy xpath,css , re `
 
 
 ## 配置
