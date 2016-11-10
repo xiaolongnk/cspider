@@ -1,6 +1,11 @@
 #cspider
 
-爬虫项目，基于scrappy实现。
+
+## scrapy 
+
+to install scrapy [refer this](https://doc.scrapy.org/en/latest/intro/install.html)
+
+爬虫项目，基于scrapy实现。
 
 
 ## 配置
@@ -14,13 +19,12 @@
 
 1. blognofile 
 
-        根据sitemap.xml 抓取网站，抓取了我的博客的[sitemap](https://blog.nofile.cc/sitemap.xml)。
-        重要灵感来自这里[官方docs](http://scrapy-chs.readthedocs.io/zh_CN/latest/topics/spiders.html#id2)
-        采用xpath模式。
+        根据sitemap.xml 抓取网站，抓取了我的博客的sitemap (https://blog.nofile.cc/sitemap.xml)。
+        主要参考了这里(http://scrapy-chs.readthedocs.io/zh_CN/latest/topics/spiders.html#id2),采用xpath模式。
 
 2. stackoverflow
         
-        这也是一个比较经典的例子,抓取了stackoverflow上的问题。采用了css模式。
+        这也是一个比较经典的例子,抓取了stackoverflow上的问题,采用css模式。
 
 
 ### 数据存储
@@ -30,6 +34,6 @@
 
 ### 参考资料
 
-1. https://doc.scrapy.org/en/latest/topics/selectors.html
+1. https://doc.scrapy.org/en/latest/intro/install.html
 2. http://chenqx.github.io/2014/12/23/Spider-Advanced-for-Dynamic-Website-Crawling/
 3. http://snowdream1314.github.io/2016/02/19/scrapy-1/
