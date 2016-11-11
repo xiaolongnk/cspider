@@ -1,5 +1,5 @@
 #coding:utf8
-from scrapy.contrib.spiders import SitemapSpider
+from scrapy.spiders import SitemapSpider
 from dirbot.items import NofileItem
 
 '''

@@ -1,6 +1,6 @@
 #coding:utf8
 from scrapy.spiders import Spider
-
+from scrapy.selector import Selector
 from dirbot.items import DmozItem 
 
 '''
@@ -8,46 +8,31 @@ default scrapy spider
 '''
 class DmozSpider(Spider):
     name = "dmoz"
-    allowed_domains = ["blog.nofile.cc"]
     start_urls = [
-        "https://blog.nofile.cc/sitemap.xml",
+            "http://www.mtedu.com/quanbukecheng"
     ]
-    cnt = 0
-    def parse_item(self , response):
-
-        pass
-
     def parse(self , response):
-        pass
-
-    '''
-    def parse(self, response):
-        if self.cnt == 0:
-            self.cnt = self.cnt + 1
-            response.selector.remove_namespaces()
-            response.selector.register_namespace('blog-nofile' ,response.url)
-            siteurls = response.selector.xpath('//loc/text()').extract()
-            items = []
-            validateurls = []
-            for i in siteurls:
-                validateurls.append(i)
-                items.extend([self.make_requests_from_url(url).replace(callback=self.parse) 
-                    for url in validateurls])
-            
-            '''
-            先抓取sitemap.xml 中的所有链接
-            '''
-            return items
-        else:
-            title = response.selector.xpath('//title/text()').extract()[0]
-            description = response.selector.xpath\
-                    ("//meta[@name='description']/attribute::content").extract()[0]
-            keywords = response.selector.\
-                    xpath("//meta[@name='keywords']/attribute::content").extract()[0]
+        allitems = response.selector.xpath("//div[@class='excitem clitem']").extract()
+        cnt = 0
+        items = []
+        for i in allitems:
+            subs          = Selector(text=i)
+            title         = subs.xpath("//div[@class='coursecover']/attribute::title").extract()[0]
+            description     = subs.xpath("//p[@class='description']/attribute::tiel").extract()[0]
+            teacher_title = subs.xpath("//span[@class='teacher']/a/attribute::title").extract()[0].strip()
+            teacher_name  = subs.xpath("//span[@class='teacher']/a/text()").extract()
+            if teacher_name:
+                teacher_name = teacher_name[0]
+            else:
+                teacher_name = ""
+            played        = subs.xpath("//span[@class='played']/text()").extract()[0]
+            teacher_info = teacher_title+"-"+teacher_name
+            cnt+=1
+            print "%s==%s==%s"%(title.strip(),teacher_info.strip(),played.strip())
             item = DmozItem()
-            item['name'] = title
+            item['title'] = title
             item['description'] = description
-            item['url'] = response.url
-            self.logger.info(item)
-            return item
-        '''
+            item['teacher'] = teacher_info
+            item['playednum'] =  played
+            items.append(item)
+        return items

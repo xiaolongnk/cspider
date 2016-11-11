@@ -3,10 +3,10 @@ from scrapy.item import Item, Field
 
 class DmozItem(Item):
 
-    url         = Field()
-    name        = Field()
-    keywords    = Field()
+    title = Field()
+    teacher= Field()
     description = Field()
+    playednum = Field()
 
 
 class NofileItem(Item):
